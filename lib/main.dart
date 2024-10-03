@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kermesse_frontend/app.dart';
 import 'package:kermesse_frontend/providers/auth_provider.dart';
-import 'package:kermesse_frontend/router/app_router.dart';
+import 'package:kermesse_frontend/routers/app_router.dart';
 import 'package:provider/provider.dart';
 
 void main() {

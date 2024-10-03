@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kermesse_frontend/router/app_router.dart';
+import 'package:kermesse_frontend/routers/app_router.dart';
 
 class App extends StatefulWidget {
   final AppRouter router;

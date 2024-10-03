@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kermesse_frontend/providers/auth_provider.dart';
-import 'package:kermesse_frontend/router/auth_router.dart';
-import 'package:kermesse_frontend/router/routes.dart';
+import 'package:kermesse_frontend/routers/auth_router.dart';
+import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:provider/provider.dart';
 
 class AppRouter {
   GoRouter goRouter(BuildContext context) {
     return GoRouter(
-      initialLocation: AuthRoutes.login,
+      initialLocation: AuthRoutes.register,
       refreshListenable: Provider.of<AuthProvider>(context, listen: false),
       routes: [
         ...AuthRouter.routes,
