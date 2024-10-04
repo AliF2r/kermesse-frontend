@@ -43,4 +43,15 @@ class AuthService {
       },
     );
   }
+
+  Future<ApiResponse<CurrentUserResponse>> getCurrentUserResponse() async {
+    return apiService.get<CurrentUserResponse>(
+      "me",
+      null,
+          (data) {
+            CurrentUserResponse currentUserResponse = CurrentUserResponse.fromJson(data);
+        return currentUserResponse;
+      },
+    );
+  }
 }

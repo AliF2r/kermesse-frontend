@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kermesse_frontend/api/api_constants.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/auth_data.dart';
+import 'package:kermesse_frontend/providers/auth_provider.dart';
+import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/auth_service.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,25 +23,50 @@ class _RegisterScreenState extends State<LoginScreen> {
   AuthService authService = AuthService();
 
 
-  Future<void> login() async {
-    ApiResponse<LoginResponse> response = await authService.login(
-      email: emailInput.text,
-      password: passwordInput.text,
-    );
-    if (response.error != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(response.error!),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('login successful'),
-        ),
-      );
-    }
+ Future<void> login() async {
+  ApiResponse<LoginResponse> response = await authService.login(
+    email: emailInput.text,
+    password: passwordInput.text,
+  );
+
+  if (response.error != null) {
+    _showSnackBar(response.error!);
+    return;
   }
+
+  await _saveToken(response.data!.token);
+  _setUser(response.data!);
+  _navigateToDashboard(response.data!.role);
+  _showSnackBar('login successful');
+}
+
+ void _showSnackBar(String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+    ),
+  );
+}
+
+ Future<void> _saveToken(String token) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.setString(ApiConstants.tokenKey, token);
+}
+
+ void _setUser(LoginResponse data) {
+  Provider.of<AuthProvider>(context, listen: false).setUser(
+    data.id,
+    data.name,
+    data.email,
+    data.role,
+  );
+}
+
+ void _navigateToDashboard(String role) {
+  if (role == "ORGANIZER") {
+    context.go(OrganizerRoutes.dashboard);
+  } // TODO: add more roles
+}
 
   @override
   void dispose() {

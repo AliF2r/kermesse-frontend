@@ -73,3 +73,32 @@ class LoginResponse {
     return LoginResponse.fromMap(json.decode(source));
   }
 }
+
+// ----------------------------
+
+class CurrentUserResponse {
+  final int id;
+  final String name;
+  final String email;
+  final String role;
+
+  CurrentUserResponse({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.role,
+  });
+
+  factory CurrentUserResponse.fromMap(Map<String, dynamic> json) {
+    return CurrentUserResponse(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      role: json['role'],
+    );
+  }
+
+  factory CurrentUserResponse.fromJson(String source) {
+    return CurrentUserResponse.fromMap(json.decode(source));
+  }
+}
