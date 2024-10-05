@@ -3,6 +3,7 @@
 import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/api/api_service.dart';
 import 'package:kermesse_frontend/data/kermesse_data.dart';
+import 'package:kermesse_frontend/data/user_data.dart';
 
 class KermesseService {
 
@@ -48,6 +49,24 @@ class KermesseService {
 
   Future<ApiResponse<Null>> complete({required int id}) async {
     return _apiService.patch("kermesses/$id/complete", "", (_) => null);
+  }
+
+  Future<ApiResponse<List<UserList>>> getAllStudentForKermesseInvitation({
+    required int kermesseId,
+  }) {
+    return _apiService.get<List<UserList>>("kermesses/$kermesseId/users", null, (data) {
+        UserListResponse userListResponse = UserListResponse.fromJson(data);
+        return userListResponse.users;
+      },
+    );
+  }
+
+  Future<ApiResponse<Null>> inviteStudentForKermesse({
+    required int userId,
+    required int kermesseId,
+  }) async {
+    KermesseUserInvitationRequest body = KermesseUserInvitationRequest(userId: userId);
+    return _apiService.patch("kermesses/$kermesseId/add-user", body.toJson(), (_) => null);
   }
 }
 

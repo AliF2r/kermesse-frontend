@@ -117,3 +117,18 @@ class KermesseListResponse {
     return KermesseListResponse.fromList(json.decode(source));
   }
 }
+
+
+class KermesseUserInvitationRequest {
+  final int userId;
+
+  KermesseUserInvitationRequest({
+    required this.userId,
+  });
+
+  String toJson() {
+    return json.encode({
+      'user_id': userId,
+    });
+  }
+}
