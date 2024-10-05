@@ -15,5 +15,8 @@ class OrganizerRoutes {
   static const String kermesseTombolas = '/organizer/kermesse-tombolas';
   static const String kermesseParticipations = '/organizer/kermesse-participations';
   static const String kermesseUserInvitation = '/organizer/kermesse-invitation';
+  static const String kermesseCreateTombola = '/organizer/kermesse-create-tombola';
+  static const String kermesseDetailsTombola = '/organizer/kermesse-details-tombola';
+  static const String kermesseModifyTombola = '/organizer/kermesse-modify-tombola';
 
 }
