@@ -68,7 +68,7 @@ class LoginResponse {
       email: json['email'],
       role: json['role'],
       token: json['token'],
-      withStand: json['withStand'],
+      withStand: json['with_stand'],
     );
   }
 
@@ -100,7 +100,7 @@ class CurrentUserResponse {
       name: json['name'],
       email: json['email'],
       role: json['role'],
-      withStand: json['withStand'],
+      withStand: json['with_stand'],
     );
   }
 

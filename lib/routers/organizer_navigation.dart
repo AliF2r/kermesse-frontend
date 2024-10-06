@@ -31,11 +31,15 @@ class OrganizerNavigation extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Kermesses',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Kermesses',
+            label: 'Tickets',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),

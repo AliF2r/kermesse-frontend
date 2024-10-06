@@ -32,14 +32,14 @@ class ParticipationStandModel {
   final String name;
   final int price;
   final String description;
-  final String type;
+  final String category;
 
   ParticipationStandModel({
     required this.id,
     required this.name,
     required this.price,
     required this.description,
-    required this.type,
+    required this.category,
   });
 
   factory ParticipationStandModel.fromMap(Map<String, dynamic> json) {
@@ -48,7 +48,7 @@ class ParticipationStandModel {
       name: json['name'],
       price: json['price'],
       description: json['description'],
-      type: json['type'],
+      category: json['category'],
     );
   }
 
@@ -61,7 +61,7 @@ class ParticipationList {
   final int id;
   final int balance;
   final int point;
-  final String type;
+  final String category;
   final String status;
   final ParticipationUserModel user;
   final ParticipationStandModel stand;
@@ -69,7 +69,7 @@ class ParticipationList {
   ParticipationList({
     required this.id,
     required this.point,
-    required this.type,
+    required this.category,
     required this.status,
     required this.balance,
     required this.user,
@@ -80,7 +80,7 @@ class ParticipationList {
     return ParticipationList(
       id: json['id'],
       point: json['point'],
-      type: json['type'],
+      category: json['category'],
       status: json['status'],
       balance: json['balance'],
       user: ParticipationUserModel.fromMap(json['user']),
@@ -139,7 +139,7 @@ class ParticipationKermesseModel {
 
 class ParticipationDetailsResponse {
   final int id;
-  final String type;
+  final String category;
   final int point;
   final String status;
   final int balance;
@@ -149,7 +149,7 @@ class ParticipationDetailsResponse {
 
   ParticipationDetailsResponse({
     required this.id,
-    required this.type,
+    required this.category,
     required this.point,
     required this.status,
     required this.balance,
@@ -161,7 +161,7 @@ class ParticipationDetailsResponse {
   factory ParticipationDetailsResponse.fromMap(Map<String, dynamic> json) {
     return ParticipationDetailsResponse(
       id: json['id'],
-      type: json['type'],
+      category: json['category'],
       point: json['point'],
       status: json['status'],
       balance: json['balance'],

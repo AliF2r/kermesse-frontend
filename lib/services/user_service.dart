@@ -24,7 +24,7 @@ class UserService {
     );
   }
 
-  Future<ApiResponse<Null>> modify({
+  Future<ApiResponse<Null>> modifyPassword({
     required int userId,
     required String password,
     required String newPassword,
@@ -34,7 +34,7 @@ class UserService {
       newPassword: newPassword,
     );
 
-    return _apiService.patch("users/$userId", body.toJson(), (_) => null,);
+    return _apiService.patch("users/password/$userId", body.toJson(), (_) => null,);
   }
 
 

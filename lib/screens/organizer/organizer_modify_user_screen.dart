@@ -29,7 +29,7 @@ class _OrganizerModifyUserScreenState extends State<OrganizerModifyUserScreen> {
   final UserService _userService = UserService();
 
   Future<void> _submit() async {
-    ApiResponse<Null> response = await _userService.modify(
+    ApiResponse<Null> response = await _userService.modifyPassword(
       userId: widget.userId,
       password: passwordInput.text,
       newPassword: newPasswordInput.text,

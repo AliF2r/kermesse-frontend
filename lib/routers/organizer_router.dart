@@ -6,13 +6,16 @@ import 'package:kermesse_frontend/routers/organizer_navigation.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_add_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_dashboard_screen.dart';
+import 'package:kermesse_frontend/screens/organizer/organizer_details_ticket_kermesse.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_details_user_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_invite_user_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_list_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_details_kermesse_screen.dart';
+import 'package:kermesse_frontend/screens/organizer/organizer_list_ticket_kermesse.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_modify_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_modify_user_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_participation_details_kermesse.dart';
+import 'package:kermesse_frontend/screens/organizer/organizer_participation_list_kermesse.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_profile_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_create_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_details_kermesse_screen.dart';
@@ -27,7 +30,6 @@ class OrganizerRouter {
     builder: (context, state, navigationShell) => OrganizerNavigation(navigationShell: navigationShell),
     branches: [
       _createBranch(OrganizerRoutes.dashboard, const OrganizerDashboardScreen()),
-      _createBranch(OrganizerRoutes.profile, const OrganizerProfileScreen()),
       StatefulShellBranch(
         routes: [
           GoRoute(
@@ -125,7 +127,36 @@ class OrganizerRouter {
               );
             },
           ),
+          GoRoute(
+            path: OrganizerRoutes.kermesseParticipations,
+            pageBuilder: (context, state) {
+              final params = GoRouterState.of(context).extra as Map<String, int>;
+              return NoTransitionPage(
+                child: OrganizerParticipationListKermesseScreen(kermesseId: params['kermesseId']!),
+              );
+            },
+          ),
         ]
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: OrganizerRoutes.kermesseTickets,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: OrganizerListTicketKermesseScreen(),
+            ),
+          ),
+          GoRoute(
+            path: OrganizerRoutes.kermesseTicketDetails,
+            pageBuilder: (context, state) {
+              final params =
+              GoRouterState.of(context).extra as Map<String, int>;
+              return NoTransitionPage(
+                child: OrganizerDetailsTicketKermesseScreen(ticketId: params['ticketId']!),
+              );
+            },
+          ),
+        ],
       ),
       StatefulShellBranch(
         routes: [

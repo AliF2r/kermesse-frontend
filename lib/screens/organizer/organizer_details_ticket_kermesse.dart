@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
-import 'package:kermesse_frontend/data/participation_data.dart';
-import 'package:kermesse_frontend/services/participation_service.dart';
+import 'package:kermesse_frontend/data/ticket_data.dart';
+import 'package:kermesse_frontend/services/ticket_service.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 
-class OrganizerParticipationDetailsKermesseScreen extends StatefulWidget {
-  final int kermesseId;
-  final int participationId;
 
-  const OrganizerParticipationDetailsKermesseScreen({
+class OrganizerDetailsTicketKermesseScreen extends StatefulWidget {
+  final int ticketId;
+
+  const OrganizerDetailsTicketKermesseScreen({
     super.key,
-    required this.kermesseId,
-    required this.participationId,
+    required this.ticketId,
   });
 
   @override
-  State<OrganizerParticipationDetailsKermesseScreen> createState() =>
-      _OrganizerParticipationDetailsKermesseScreenState();
+  State<OrganizerDetailsTicketKermesseScreen> createState() => _OrganizerDetailsTicketKermesseScreenState();
 }
 
-class _OrganizerParticipationDetailsKermesseScreenState
-    extends State<OrganizerParticipationDetailsKermesseScreen> {
+class _OrganizerDetailsTicketKermesseScreenState extends State<OrganizerDetailsTicketKermesseScreen> {
   final Key _key = UniqueKey();
 
-  final ParticipationService _participationService = ParticipationService();
+  final TicketService _ticketService = TicketService();
 
-  Future<ParticipationDetailsResponse> _get() async {
-    ApiResponse<ParticipationDetailsResponse> response =
-    await _participationService.details(
-      interactionId: widget.participationId,
-    );
+  Future<TicketDetailsResponse> _get() async {
+    ApiResponse<TicketDetailsResponse> response = await _ticketService.details(ticketId: widget.ticketId);
     if (response.error != null) {
       throw Exception(response.error);
     }
@@ -43,9 +37,9 @@ class _OrganizerParticipationDetailsKermesseScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Interaction Details",
+            "Ticket Details",
           ),
-          FutureBuilder<ParticipationDetailsResponse>(
+          FutureBuilder<TicketDetailsResponse>(
             key: _key,
             future: _get(),
             builder: (context, snapshot) {
@@ -62,16 +56,14 @@ class _OrganizerParticipationDetailsKermesseScreenState
                 );
               }
               if (snapshot.hasData) {
-                ParticipationDetailsResponse participation = snapshot.data!;
+                TicketDetailsResponse ticket = snapshot.data!;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(participation.id.toString()),
-                    Text(participation.category),
-                    Text(participation.user.name),
-                    Text(participation.balance.toString()),
-                    Text(participation.kermesse.name),
-                    Text(participation.stand.name),
+                    Text(ticket.id.toString()),
+                    Text(ticket.isWinner ? 'Winner' : 'Loser'),
+                    Text(ticket.user.name),
+                    Text(ticket.tombola.name),
                   ],
                 );
               }
