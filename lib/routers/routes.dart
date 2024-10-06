@@ -26,3 +26,25 @@ class OrganizerRoutes {
   static const String kermesseDetailsStands = '/organizer/kermesse-details-stands';
   static const String kermesseInvitationStands = '/organizer/kermesse-invitation-stands';
 }
+
+class ParentRoutes {
+  static const String dashboard = '/parent/dashboard';
+  static const String profile = '/parent/profile';
+  static const String listKermesse = '/parent/list-kermesse';
+  static const String detailsKermesse = '/parent/details-kermesse';
+  static const String kermesseChildList = '/parent/kermesse-child-list';
+  static const String kermesseStands = '/parent/kermesse-stands';
+  static const String kermesseTombolas = '/parent/kermesse-tombolas';
+  static const String kermesseParticipations = '/parent/kermesse-participations';
+  static const String kermesseParticipationDetails = '/parent/kermesse-participation-details';
+  static const String kermesseDetailsTombola = '/parent/kermesse-details-tombola';
+  static const String ticketDetails = '/parent/ticket-details';
+  static const String listTicket = '/parent/list-ticket';
+  static const String kermesseDetailsStands = '/parent/kermesse-details-stands';
+  static const String listChild = '/parent/list-child';
+  static const String childInvitation = '/parent/child-invitation';
+  static const String childDetails = '/parent/child-details';
+  static const String userDetails = '/parent/user-details';
+  static const String userModify = '/parent/user-modify';
+  static const String userModifyBalance = '/parent/user-modify-balance';
+}

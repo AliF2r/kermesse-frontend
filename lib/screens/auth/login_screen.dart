@@ -112,6 +112,12 @@ class _RegisterScreenState extends State<LoginScreen> {
                 onPressed: login,
                 child: const Text('Login'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  context.push(AuthRoutes.register);
+                },
+                child: const Text('Register'),
+              )
             ],
           ),
         ),

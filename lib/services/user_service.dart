@@ -34,8 +34,43 @@ class UserService {
       newPassword: newPassword,
     );
 
-    return _apiService.patch("users/password/$userId", body.toJson(), (_) => null,);
+    return _apiService.patch("users/password/$userId", body.toJson(), (_) => null);
+  }
+
+  Future<ApiResponse<List<UserList>>> getAllChildren({
+    int? kermesseId,
+  }) {
+    Map<String, String> params = {};
+    if (kermesseId != null) {
+      params['kermesse_id'] = kermesseId.toString();
+    }
+    return _apiService.get<List<UserList>>("users/students", params, (data) {
+        UserListResponse userListResponse = UserListResponse.fromJson(data);
+        return userListResponse.users;
+      },
+    );
   }
 
 
+  Future<ApiResponse<Null>> sendBalance({
+    required int studentId,
+    required int balance,
+  }) async {
+    UserBalanceSendRequest body = UserBalanceSendRequest(
+      studentId: studentId,
+      balance: balance,
+    );
+    return _apiService.patch("users/send-jeton", body.toJson(), (_) => null);
+  }
+
+  Future<ApiResponse<Null>> inviteChild({
+    required String name,
+    required String email,
+  }) async {
+    ChildInvitationRequest body = ChildInvitationRequest(
+      name: name,
+      email: email,
+    );
+    return _apiService.post("users/invite-child", body.toJson(), (_) => null);
+  }
 }

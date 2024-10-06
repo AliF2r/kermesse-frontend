@@ -175,3 +175,24 @@ class ParticipationDetailsResponse {
     return ParticipationDetailsResponse.fromMap(json.decode(source));
   }
 }
+
+
+class ParticipationCreateRequest {
+  final int standId;
+  final int kermesseId;
+  final int quantity;
+
+  ParticipationCreateRequest({
+    required this.standId,
+    required this.kermesseId,
+    required this.quantity,
+  });
+
+  String toJson() {
+    return json.encode({
+      'stand_id': standId,
+      'kermesse_id': kermesseId,
+      'quantity': quantity,
+    });
+  }
+}

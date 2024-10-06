@@ -64,3 +64,38 @@ class UserModifyPasswordRequest {
     });
   }
 }
+
+class UserBalanceSendRequest {
+  final int studentId;
+  final int balance;
+
+  UserBalanceSendRequest({
+    required this.studentId,
+    required this.balance,
+  });
+
+  String toJson() {
+    return json.encode({
+      'student_id': studentId,
+      'balance': balance,
+    });
+  }
+}
+
+class ChildInvitationRequest {
+  final String name;
+  final String email;
+
+  ChildInvitationRequest({
+    required this.name,
+    required this.email,
+  });
+
+  String toJson() {
+    return json.encode({
+      'name': name,
+      'email': email,
+    });
+  }
+}
+

@@ -4,6 +4,7 @@ import 'package:kermesse_frontend/providers/auth_provider.dart';
 import 'package:kermesse_frontend/providers/auth_user.dart';
 import 'package:kermesse_frontend/routers/auth_router.dart';
 import 'package:kermesse_frontend/routers/organizer_router.dart';
+import 'package:kermesse_frontend/routers/parent_router.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -22,13 +23,16 @@ class AppRouter {
           //TODO: Redirect to home for other roles
           if (user.role == "ORGANIZER") {
             return OrganizerRoutes.dashboard;
+          } else if (user.role == "PARENT") {
+            return ParentRoutes.dashboard;
           }
         }
         return state.fullPath;
       },
       routes: [
         ...AuthRouter.routes,
-        OrganizerRouter.routes
+        OrganizerRouter.routes,
+        ParentRouter.routes,
       ],
     );
   }

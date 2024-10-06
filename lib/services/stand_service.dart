@@ -23,4 +23,14 @@ class StandService {
       },
     );
   }
+
+  Future<ApiResponse<StandDetailsResponse>> details({
+    required int standId,
+  }) async {
+    return _apiService.get<StandDetailsResponse>("stands/$standId", null, (data) {
+        StandDetailsResponse standDetailsResponse = StandDetailsResponse.fromJson(data);
+        return standDetailsResponse;
+      },
+    );
+  }
 }

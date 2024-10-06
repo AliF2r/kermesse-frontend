@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
+import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -37,6 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           content: Text('Register successful'),
         ),
       );
+      context.push(AuthRoutes.login);
     }
   }
 
