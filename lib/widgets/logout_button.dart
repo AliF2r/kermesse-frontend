@@ -18,7 +18,7 @@ class _LogoutButtonState extends State<LogoutButton> {
   Future<void> logout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.remove(ApiConstants.tokenKey);
-    Provider.of<AuthProvider>(context, listen: false).setUser(-1, "", "", "");
+    Provider.of<AuthProvider>(context, listen: false).setUser(-1, "", "", "", false);
     context.go(AuthRoutes.login);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

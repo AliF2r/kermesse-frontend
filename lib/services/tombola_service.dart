@@ -13,7 +13,7 @@ class TombolaService {
     );
   }
 
-  Future<ApiResponse<Null>> create({
+  Future<ApiResponse<Null>> add({
     required int kermesseId,
     required String name,
     required String prize,

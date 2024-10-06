@@ -14,7 +14,28 @@ class UserService {
     );
   }
 
+  Future<ApiResponse<UserList>> details({
+    required int userId,
+  }) async {
+    return _apiService.get<UserList>("users/$userId", null, (data) {
+            UserList userDetailsResponse = UserList.fromJson(data);
+        return userDetailsResponse;
+      },
+    );
+  }
 
+  Future<ApiResponse<Null>> modify({
+    required int userId,
+    required String password,
+    required String newPassword,
+  }) async {
+    UserModifyPasswordRequest body = UserModifyPasswordRequest(
+      password: password,
+      newPassword: newPassword,
+    );
+
+    return _apiService.patch("users/$userId", body.toJson(), (_) => null,);
+  }
 
 
 }

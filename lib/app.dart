@@ -35,6 +35,7 @@ class _AppState extends State<App> {
         response.data!.name,
         response.data!.email,
         response.data!.role,
+        response.data!.withStand,
       );
     }
   }

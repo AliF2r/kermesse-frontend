@@ -59,6 +59,7 @@ class _RegisterScreenState extends State<LoginScreen> {
     data.name,
     data.email,
     data.role,
+    data.withStand,
   );
 }
 

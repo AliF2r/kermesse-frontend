@@ -47,3 +47,20 @@ class UserListResponse {
     return UserListResponse.fromList(json.decode(source));
   }
 }
+
+class UserModifyPasswordRequest {
+  final String password;
+  final String newPassword;
+
+  UserModifyPasswordRequest({
+    required this.password,
+    required this.newPassword,
+  });
+
+  String toJson() {
+    return json.encode({
+      'password': password,
+      'new_password': newPassword,
+    });
+  }
+}

@@ -29,7 +29,7 @@ class _OrganizerTombolaCreateKermesseScreenState extends State<OrganizerTombolaC
 
 
   Future<void> _addTombola() async {
-    ApiResponse<Null> response = await _tombolaService.create(
+    ApiResponse<Null> response = await _tombolaService.add(
       kermesseId: widget.kermesseId,
       name: nameInput.text,
       prize: prizeInput.text,

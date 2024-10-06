@@ -8,6 +8,7 @@ import 'package:kermesse_frontend/screens/organizer/organizer_invite_user_kermes
 import 'package:kermesse_frontend/screens/organizer/organizer_list_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_details_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_modify_kermesse_screen.dart';
+import 'package:kermesse_frontend/screens/organizer/organizer_participation_details_kermesse.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_profile_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_create_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_details_kermesse_screen.dart';
@@ -107,6 +108,15 @@ class OrganizerRouter {
               final params = GoRouterState.of(context).extra as Map<String, int>;
               return NoTransitionPage(
                 child: OrganizerTombolaModifyKermesseScreen(tombolaId: params['tombolaId']!, kermesseId: params['kermesseId']!),
+              );
+            },
+          ),
+          GoRoute(
+            path: OrganizerRoutes.kermesseParticipationDetails,
+            pageBuilder: (context, state) {
+              final params = GoRouterState.of(context).extra as Map<String, int>;
+              return NoTransitionPage(
+                child: OrganizerParticipationDetailsKermesseScreen(kermesseId: params['kermesseId']!, participationId: params['participationId']!,),
               );
             },
           ),
