@@ -33,4 +33,48 @@ class StandService {
       },
     );
   }
+
+  Future<ApiResponse<Null>> addStand({
+    required String category,
+    required String name,
+    required String description,
+    required int price,
+    required int stock,
+  }) async {
+    StandAddRequest body = StandAddRequest(
+      category: category,
+      name: name,
+      description: description,
+      price: price,
+      stock: stock,
+    );
+
+    return _apiService.post("stands", body.toJson(), (_) => null);
+  }
+
+
+  Future<ApiResponse<StandDetailsResponse>> getOwnStand() async {
+    return _apiService.get<StandDetailsResponse>("stands/owner", null, (data) {
+        StandDetailsResponse standDetailsResponse = StandDetailsResponse.fromJson(data);
+        return standDetailsResponse;
+      },
+    );
+  }
+
+  Future<ApiResponse<Null>> modifyStand({
+    required String name,
+    required String description,
+    required int price,
+    required int stock,
+  }) async {
+    StandEditRequest body = StandEditRequest(
+      name: name,
+      description: description,
+      price: price,
+      stock: stock,
+    );
+
+    return _apiService.patch("stands/modify", body.toJson(), (_) => null);
+  }
+
 }

@@ -196,3 +196,18 @@ class ParticipationCreateRequest {
     });
   }
 }
+
+class ParticipationFinishGameRequest {
+  final int point;
+
+  ParticipationFinishGameRequest({
+    required this.point,
+  });
+
+  String toJson() {
+    return json.encode({
+      'point': point,
+    });
+  }
+}
+

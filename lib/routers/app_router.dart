@@ -6,6 +6,7 @@ import 'package:kermesse_frontend/routers/auth_router.dart';
 import 'package:kermesse_frontend/routers/organizer_router.dart';
 import 'package:kermesse_frontend/routers/parent_router.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
+import 'package:kermesse_frontend/routers/standHolder_router.dart';
 import 'package:kermesse_frontend/routers/student_router.dart';
 import 'package:provider/provider.dart';
 
@@ -21,13 +22,14 @@ class AppRouter {
           return AuthRoutes.login;
         }
         if (isLoggedIn && state.fullPath!.startsWith("/connect")) {
-          //TODO: Redirect to home for other roles
           if (user.role == "ORGANIZER") {
             return OrganizerRoutes.dashboard;
           } else if (user.role == "PARENT") {
             return ParentRoutes.dashboard;
           } else if (user.role == "STUDENT") {
             return StudentRoutes.dashboard;
+          } else if (user.role == "STAND_HOLDER") {
+            return StandHolderRoutes.dashboard;
           }
         }
         return state.fullPath;
@@ -37,6 +39,7 @@ class AppRouter {
         OrganizerRouter.routes,
         ParentRouter.routes,
         StudentRouter.routes,
+        StandHolderRouter.routes
       ],
     );
   }

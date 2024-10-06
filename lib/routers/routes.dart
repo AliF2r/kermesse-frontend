@@ -64,3 +64,16 @@ class StudentRoutes {
   static const String listTicket = '/student/list-ticket';
   static const String ticketDetails = '/student/ticket-details';
 }
+
+class StandHolderRoutes {
+  static const String dashboard = '/stand-holder/dashboard';
+  static const String userDetails = '/stand-holder/profile';
+  static const String userModify = '/stand-holder/profile-modify';
+  static const String listKermesse = '/stand-holder/list-kermesse';
+  static const String kermesseDetails = '/stand-holder/kermesse-details';
+  static const String kermesseParticipationList = '/stand-holder/kermesse-participation-list';
+  static const String kermesseParticipationDetails = '/stand-holder/kermesse-participation-details';
+  static const String standAdd = '/stand-holder/stand-add';
+  static const String standModify = '/stand-holder/stand-modify';
+  static const String standDetails = '/stand-holder/stand-details';
+}

@@ -38,4 +38,15 @@ class ParticipationService {
     return _apiService.post("participations", body.toJson(), (_) => null);
   }
 
+  Future<ApiResponse<Null>> finishGame({
+    required int participationId,
+    required int point,
+  }) async {
+    ParticipationFinishGameRequest body = ParticipationFinishGameRequest(
+      point: point,
+    );
+
+    return _apiService.patch("participations/$participationId", body.toJson(), (_) => null);
+  }
+
 }
