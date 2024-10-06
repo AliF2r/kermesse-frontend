@@ -48,3 +48,19 @@ class ParentRoutes {
   static const String userModify = '/parent/user-modify';
   static const String userModifyBalance = '/parent/user-modify-balance';
 }
+
+class StudentRoutes {
+  static const String dashboard = '/student/dashboard';
+  static const String userDetails = '/student/profile';
+  static const String userModify = '/student/profile-modify';
+  static const String listKermesse = '/student/list-kermesse';
+  static const String kermesseDetails = '/student/kermesse-details';
+  static const String kermesseTombolaList = '/student/kermesse-tombola-list';
+  static const String kermesseTombolaDetails = '/student/kermesse-tombola-details';
+  static const String kermesseStandList = '/student/kermesse-stand-list';
+  static const String kermesseStandDetails = '/student/kermesse-stand-details';
+  static const String kermesseParticipationsList = '/student/kermesse-participation-list';
+  static const String kermesseParticipationDetails = '/student/kermesse-participation-details';
+  static const String listTicket = '/student/list-ticket';
+  static const String ticketDetails = '/student/ticket-details';
+}

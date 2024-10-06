@@ -30,18 +30,15 @@ class KermesseService {
     required int kermesseId,
   }) async {
     return _apiService.get<KermesseDetailsResponse>("kermesses/$kermesseId", null, (data) {
-        KermesseDetailsResponse kermesseDetailsResponse =
-        KermesseDetailsResponse.fromJson(data);
+        KermesseDetailsResponse kermesseDetailsResponse = KermesseDetailsResponse.fromJson(data);
         return kermesseDetailsResponse;
       }
     );
   }
 
-
   Future<ApiResponse<List<KermesseList>>> getKermesseList() {
     return _apiService.get<List<KermesseList>>("kermesses", null, (data) {
-        KermesseListResponse kermesseListResponse =
-        KermesseListResponse.fromJson(data);
+        KermesseListResponse kermesseListResponse = KermesseListResponse.fromJson(data);
         return kermesseListResponse.kermesses;
       }
     );
@@ -68,7 +65,6 @@ class KermesseService {
     KermesseUserInvitationRequest body = KermesseUserInvitationRequest(userId: userId);
     return _apiService.patch("kermesses/$kermesseId/add-user", body.toJson(), (_) => null);
   }
-
 
   Future<ApiResponse<Null>> inviteStandForKermesse({
     required int kermesseId,
