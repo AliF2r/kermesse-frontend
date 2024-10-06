@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kermesse_frontend/providers/auth_provider.dart';
+import 'package:kermesse_frontend/providers/auth_user.dart';
 import 'package:kermesse_frontend/routers/organizer_navigation.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_add_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_dashboard_screen.dart';
+import 'package:kermesse_frontend/screens/organizer/organizer_details_user_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_invite_user_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_list_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_details_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_modify_kermesse_screen.dart';
+import 'package:kermesse_frontend/screens/organizer/organizer_modify_user_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_participation_details_kermesse.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_profile_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_create_kermesse_screen.dart';
@@ -15,6 +19,7 @@ import 'package:kermesse_frontend/screens/organizer/organizer_tombola_details_ke
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_list_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_tombola_modify_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/organizer/organizer_user_list_kermesse_screen.dart';
+import 'package:provider/provider.dart';
 
 
 class OrganizerRouter {
@@ -121,6 +126,29 @@ class OrganizerRouter {
             },
           ),
         ]
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: OrganizerRoutes.userDetails,
+            pageBuilder: (context, state) {
+              AuthUser user = Provider.of<AuthProvider>(context, listen: false).user;
+              return NoTransitionPage(
+                child: OriganizerUserDetailsScreen(userId: user.id),
+              );
+            },
+          ),
+          GoRoute(
+            path: OrganizerRoutes.userModify,
+            pageBuilder: (context, state) {AuthUser user = Provider.of<AuthProvider>(context, listen: false).user;
+              return NoTransitionPage(
+                child: OrganizerModifyUserScreen(
+                  userId: user.id,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     ],
   );

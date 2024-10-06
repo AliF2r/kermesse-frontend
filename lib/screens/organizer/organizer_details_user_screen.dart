@@ -7,19 +7,19 @@ import 'package:kermesse_frontend/services/user_service.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 
 
-class UserDetailsScreen extends StatefulWidget {
+class OriganizerUserDetailsScreen extends StatefulWidget {
   final int userId;
 
-  const UserDetailsScreen({
+  const OriganizerUserDetailsScreen({
     super.key,
     required this.userId,
   });
 
   @override
-  State<UserDetailsScreen> createState() => _UserDetailsScreenState();
+  State<OriganizerUserDetailsScreen> createState() => _OriganizerUserDetailsScreenState();
 }
 
-class _UserDetailsScreenState extends State<UserDetailsScreen> {
+class _OriganizerUserDetailsScreenState extends State<OriganizerUserDetailsScreen> {
   final Key _key = UniqueKey();
 
   final UserService _userService = UserService();

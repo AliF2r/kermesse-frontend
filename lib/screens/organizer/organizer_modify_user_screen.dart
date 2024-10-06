@@ -10,19 +10,19 @@ import 'package:kermesse_frontend/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserEditScreen extends StatefulWidget {
+class OrganizerModifyUserScreen extends StatefulWidget {
   final int userId;
 
-  const UserEditScreen({
+  const OrganizerModifyUserScreen({
     super.key,
     required this.userId,
   });
 
   @override
-  State<UserEditScreen> createState() => _UserEditScreenState();
+  State<OrganizerModifyUserScreen> createState() => _OrganizerModifyUserScreenState();
 }
 
-class _UserEditScreenState extends State<UserEditScreen> {
+class _OrganizerModifyUserScreenState extends State<OrganizerModifyUserScreen> {
   final TextEditingController passwordInput = TextEditingController();
   final TextEditingController newPasswordInput = TextEditingController();
 
