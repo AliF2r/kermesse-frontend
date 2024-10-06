@@ -6,22 +6,18 @@ import 'package:kermesse_frontend/screens/auth/login_screen.dart';
 import 'package:kermesse_frontend/screens/auth/register_screen.dart';
 
 class AuthRouter {
-  static final routes = StatefulShellRoute.indexedStack(
-    builder: (context, state, navigationShell) => OrganizerNavigation(navigationShell: navigationShell),
-    branches: [
-      _createBranch(AuthRoutes.register, const RegisterScreen()),
-      _createBranch(AuthRoutes.login, const LoginScreen()),
-    ],
-  );
-  
-  static StatefulShellBranch _createBranch(String path, Widget screen) {
-    return StatefulShellBranch(
-      routes: [
-        GoRoute(
-          path: path,
-          pageBuilder: (context, state) => NoTransitionPage(child: screen),
-        ),
-      ],
-    );
-  }
+  static List<RouteBase> routes = [
+    GoRoute(
+      path: AuthRoutes.register,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: RegisterScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AuthRoutes.login,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: LoginScreen(),
+      ),
+    ),
+  ];
 }

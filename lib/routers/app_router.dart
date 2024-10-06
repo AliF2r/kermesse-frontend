@@ -27,7 +27,7 @@ class AppRouter {
         return state.fullPath;
       },
       routes: [
-        AuthRouter.routes,
+        ...AuthRouter.routes,
         OrganizerRouter.routes
       ],
     );
