@@ -6,6 +6,7 @@ import 'package:kermesse_frontend/routers/auth_router.dart';
 import 'package:kermesse_frontend/routers/organizer_router.dart';
 import 'package:kermesse_frontend/routers/parent_router.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
+import 'package:kermesse_frontend/routers/student_router.dart';
 import 'package:provider/provider.dart';
 
 class AppRouter {
@@ -25,6 +26,8 @@ class AppRouter {
             return OrganizerRoutes.dashboard;
           } else if (user.role == "PARENT") {
             return ParentRoutes.dashboard;
+          } else if (user.role == "STUDENT") {
+            return StudentRoutes.dashboard;
           }
         }
         return state.fullPath;
@@ -33,6 +36,7 @@ class AppRouter {
         ...AuthRouter.routes,
         OrganizerRouter.routes,
         ParentRouter.routes,
+        StudentRouter.routes,
       ],
     );
   }
