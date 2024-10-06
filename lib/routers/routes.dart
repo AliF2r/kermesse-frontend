@@ -23,5 +23,6 @@ class OrganizerRoutes {
   static const String userDetails = '/organizer/user-details';
   static const String kermesseTickets = '/organizer/kermesse-tickets';
   static const String kermesseTicketDetails = '/organizer/kermesse-ticket-details';
-
+  static const String kermesseDetailsStands = '/organizer/kermesse-details-stands';
+  static const String kermesseInvitationStands = '/organizer/kermesse-invitation-stands';
 }

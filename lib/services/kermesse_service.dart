@@ -68,5 +68,15 @@ class KermesseService {
     KermesseUserInvitationRequest body = KermesseUserInvitationRequest(userId: userId);
     return _apiService.patch("kermesses/$kermesseId/add-user", body.toJson(), (_) => null);
   }
+
+
+  Future<ApiResponse<Null>> inviteStandForKermesse({
+    required int kermesseId,
+    required int standId,
+  }) async {
+    KermesseStandInvitationRequest body = KermesseStandInvitationRequest(standId: standId);
+    return _apiService.patch("kermesses/$kermesseId/add-stand", body.toJson(), (_) => null);
+  }
+
 }
 
