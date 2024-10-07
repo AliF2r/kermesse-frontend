@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/stand_data.dart';
+import 'package:kermesse_frontend/providers/auth_provider.dart';
+import 'package:kermesse_frontend/providers/auth_user.dart';
+import 'package:kermesse_frontend/services/auth_service.dart';
 import 'package:kermesse_frontend/services/participation_service.dart';
 import 'package:kermesse_frontend/services/stand_service.dart';
+import 'package:kermesse_frontend/widgets/app_theme_helper.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/custom_input_field.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
+import 'package:kermesse_frontend/widgets/stand_card_details.dart';
 import 'package:kermesse_frontend/widgets/text_input.dart';
+import 'package:provider/provider.dart';
 
 class ParentDetailsStandKermesseScreen extends StatefulWidget {
   final int kermesseId;
@@ -26,8 +35,9 @@ class _ParentDetailsStandKermesseScreenState extends State<ParentDetailsStandKer
 
   final StandService _standService = StandService();
   final ParticipationService _participationService = ParticipationService();
+  final AuthService _authService = AuthService();
 
-  Future<StandDetailsResponse> _get() async {
+  Future<StandDetailsResponse> _getDetails() async {
     ApiResponse<StandDetailsResponse> response = await _standService.details(standId: widget.standId);
     if (response.error != null) {
       throw Exception(response.error);
@@ -39,7 +49,7 @@ class _ParentDetailsStandKermesseScreenState extends State<ParentDetailsStandKer
     ApiResponse<Null> response = await _participationService.create(
       kermesseId: widget.kermesseId,
       standId: widget.standId,
-      quantity: int.parse(quantityInput.text),
+      quantity: int.tryParse(quantityInput.text) ?? 1,
     );
     if (response.error != null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -64,68 +74,55 @@ class _ParentDetailsStandKermesseScreenState extends State<ParentDetailsStandKer
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Stand Details",
-          ),
-          FutureBuilder<StandDetailsResponse>(
-            key: _key,
-            future: _get(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    snapshot.error.toString(),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                StandDetailsResponse stand = snapshot.data!;
-                return Column(
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Stand Details'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FutureBuilder<StandDetailsResponse>(
+          key: _key,
+          future: _getDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  snapshot.error.toString(),
+                  style: const TextStyle(color: Colors.red),
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              StandDetailsResponse stand = snapshot.data!;
+              return SingleChildScrollView(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(stand.id.toString()),
-                    Text(stand.category),
-                    Text(stand.name),
-                    Text(stand.description),
-                    Text(stand.price.toString()),
-                    Text(stand.stock.toString()),
-                    stand.category == "ACTIVITY"
-                        ? SizedBox(
-                      width: 0,
-                      height: 0,
-                      child: TextInput(
-                        value: "1",
+                    StandDetailsCard(stand: stand),
+                    const SizedBox(height: 20),
+                    if (stand.category == "GAME")
+                      Container()
+                    else
+                      CustomInputField(
                         controller: quantityInput,
-                        hint: "Quantity",
+                        labelText: "Quantity",
+                        inputType: TextInputType.number,
                       ),
-                    )
-                        : TextInput(
-                      value: "1",
-                      controller: quantityInput,
-                      hint: "Quantity",
-                    ),
-                    ElevatedButton(
+                    const SizedBox(height: 20),
+                    CustomButton(
+                      text: stand.category == "GAME" ? "Start" : "Buy",
                       onPressed: _participate,
-                      child: const Text("Participate"),
                     ),
                   ],
-                );
-              }
-              return const Center(
-                child: Text('Something went wrong'),
+                ),
               );
-            },
-          ),
-        ],
+            }
+            return const Center(
+              child: Text('Something went wrong'),
+            );
+          },
+        ),
       ),
     );
   }

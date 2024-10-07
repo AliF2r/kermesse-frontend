@@ -6,7 +6,6 @@ import 'package:kermesse_frontend/routers/organizer_navigation.dart';
 import 'package:kermesse_frontend/routers/parent_navigation.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/screens/parent/parent_child_list_kermesse_screen.dart';
-import 'package:kermesse_frontend/screens/parent/parent_dashboard_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_details_child_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_details_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_details_participation_kermesse_screen.dart';
@@ -27,16 +26,6 @@ class ParentRouter {
   static final routes = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) => ParentNavigation(navigationShell: navigationShell),
     branches: [
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: ParentRoutes.dashboard,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: ParentDashboardScreen(),
-            ),
-          ),
-        ],
-      ),
       StatefulShellBranch(
         routes: [
           GoRoute(

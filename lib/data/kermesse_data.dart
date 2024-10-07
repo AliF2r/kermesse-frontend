@@ -44,6 +44,14 @@ class KermesseDetailsResponse {
   final String name;
   final String description;
   final String status;
+  final int userNumber;
+  final int standNumber;
+  final int tombolaNumber;
+  final int tombolaBenefit;
+  final int participationNumber;
+  final int participationBenefit;
+  final int points;
+
 
   KermesseDetailsResponse({
     required this.id,
@@ -51,6 +59,13 @@ class KermesseDetailsResponse {
     required this.name,
     required this.description,
     required this.status,
+    required this.userNumber,
+    required this.standNumber,
+    required this.tombolaNumber,
+    required this.tombolaBenefit,
+    required this.participationNumber,
+    required this.participationBenefit,
+    required this.points,
   });
 
   factory KermesseDetailsResponse.fromMap(Map<String, dynamic> json) {
@@ -60,6 +75,13 @@ class KermesseDetailsResponse {
       userId: json['user_id'],
       description: json['description'],
       status: json['status'],
+      userNumber: json['user_number'],
+      standNumber: json['stand_number'],
+      tombolaNumber: json['tombola_number'],
+      tombolaBenefit: json['tombola_benefit'],
+      participationNumber: json['participation_number'],
+      participationBenefit: json['participation_benefit'],
+      points: json['points'],
     );
   }
 

@@ -5,6 +5,10 @@ import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/providers/auth_provider.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/user_service.dart';
+import 'package:kermesse_frontend/widgets/confirmation_dialog.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/custom_input_field.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 import 'package:kermesse_frontend/widgets/text_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,13 +27,16 @@ class ParentUserModifyScreen extends StatefulWidget {
 }
 
 class _ParentUserModifyScreenState extends State<ParentUserModifyScreen> {
-
   final TextEditingController passwordInput = TextEditingController();
   final TextEditingController newPasswordInput = TextEditingController();
   final UserService _userService = UserService();
 
   Future<void> _modifyPassword() async {
-    ApiResponse<Null> response = await _userService.modifyPassword(userId: widget.userId, password: passwordInput.text, newPassword: newPasswordInput.text);
+    ApiResponse<Null> response = await _userService.modifyPassword(
+      userId: widget.userId,
+      password: passwordInput.text,
+      newPassword: newPasswordInput.text,
+    );
     if (response.error != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -39,7 +46,7 @@ class _ParentUserModifyScreenState extends State<ParentUserModifyScreen> {
     } else {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.remove(ApiConstants.tokenKey);
-      Provider.of<AuthProvider>(context, listen: false).setUser(-1, "", "", "", false);
+      Provider.of<AuthProvider>(context, listen: false).setUser(-1, "", "", "", false, 0);
       context.go(AuthRoutes.login);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -47,6 +54,14 @@ class _ParentUserModifyScreenState extends State<ParentUserModifyScreen> {
         ),
       );
     }
+  }
+
+  Future<void> _showConfirmationDialog() async {
+    showConfirmationDialog(
+      context,
+      'Are you sure you want to modify the password?',
+      _modifyPassword,
+    );
   }
 
   @override
@@ -58,28 +73,46 @@ class _ParentUserModifyScreenState extends State<ParentUserModifyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Password Edit",
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Modify Password'),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                "Edit Password",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              CustomInputField(
+                controller: passwordInput,
+                labelText: "Current Password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+
+              CustomInputField(
+                controller: newPasswordInput,
+                labelText: "New Password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 30),
+              CustomButton(
+                text: 'Modify Password',
+                onPressed: _showConfirmationDialog,
+              ),
+            ],
           ),
-          TextInput(
-            controller: passwordInput,
-            hint: "Password",
-          ),
-          TextInput(
-            controller: newPasswordInput,
-            hint: "New password",
-          ),
-          ElevatedButton(
-            onPressed: _modifyPassword,
-            child: const Text('Modify password'),
-          ),
-        ],
+        ),
       ),
     );
   }
-
 }

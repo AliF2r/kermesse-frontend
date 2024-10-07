@@ -6,6 +6,7 @@ class AuthUser {
   final String email;
   final String role;
   final bool withStand;
+  final int balance;
 
   AuthUser({
     required this.id,
@@ -13,6 +14,7 @@ class AuthUser {
     required this.email,
     required this.role,
     required this.withStand,
+    required this.balance,
   });
 
   factory AuthUser.getEmpty() {
@@ -22,6 +24,7 @@ class AuthUser {
       email: '',
       role: '',
       withStand: false,
+      balance: 0,
     );
   }
 
@@ -32,6 +35,7 @@ class AuthUser {
       email: json['email'],
       role: json['role'],
       withStand: json['with_stand'],
+      balance: json['balance'],
     );
   }
 

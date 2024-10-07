@@ -51,6 +51,7 @@ class LoginResponse {
   final String role;
   final String token;
   final bool   withStand;
+  final int    balance;
 
   LoginResponse({
     required this.id,
@@ -59,6 +60,7 @@ class LoginResponse {
     required this.role,
     required this.token,
     required this.withStand,
+    required this.balance,
   });
 
   factory LoginResponse.fromMap(Map<String, dynamic> json) {
@@ -69,6 +71,7 @@ class LoginResponse {
       role: json['role'],
       token: json['token'],
       withStand: json['with_stand'],
+      balance: json['balance'],
     );
   }
 
@@ -85,6 +88,7 @@ class CurrentUserResponse {
   final String email;
   final String role;
   final bool   withStand;
+  final int    balance;
 
   CurrentUserResponse({
     required this.id,
@@ -92,6 +96,7 @@ class CurrentUserResponse {
     required this.email,
     required this.role,
     required this.withStand,
+    required this.balance,
   });
 
   factory CurrentUserResponse.fromMap(Map<String, dynamic> json) {
@@ -101,6 +106,7 @@ class CurrentUserResponse {
       email: json['email'],
       role: json['role'],
       withStand: json['with_stand'],
+      balance: json['balance'],
     );
   }
 

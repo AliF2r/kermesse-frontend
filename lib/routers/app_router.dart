@@ -23,14 +23,20 @@ class AppRouter {
         }
         if (isLoggedIn && state.fullPath!.startsWith("/connect")) {
           if (user.role == "ORGANIZER") {
-            return OrganizerRoutes.dashboard;
+            return OrganizerRoutes.listKermesse;
           } else if (user.role == "PARENT") {
-            return ParentRoutes.dashboard;
+            return ParentRoutes.listKermesse;
           } else if (user.role == "STUDENT") {
             return StudentRoutes.dashboard;
           } else if (user.role == "STAND_HOLDER") {
             return StandHolderRoutes.dashboard;
           }
+        }
+        if (isLoggedIn && user.role == "STAND_HOLDER" && !user.withStand) {
+          return StandHolderRoutes.standAdd;
+        }
+        if (isLoggedIn && user.role == "STAND_HOLDER" && user.withStand && state.fullPath!.startsWith("/stand-holder/stand-add")) {
+          return StandHolderRoutes.standDetails;
         }
         return state.fullPath;
       },

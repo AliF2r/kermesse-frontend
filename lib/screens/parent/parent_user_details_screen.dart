@@ -4,6 +4,11 @@ import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/user_data.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/user_service.dart';
+import 'package:kermesse_frontend/widgets/confirmation_dialog.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
+import 'package:kermesse_frontend/widgets/logout.dart';
+import 'package:kermesse_frontend/widgets/logout_button.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 
 class ParentUserDetailsScreen extends StatefulWidget {
@@ -33,14 +38,13 @@ class _ParentUserDetailsScreenState extends State<ParentUserDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Profile",
-          ),
-          FutureBuilder<UserList>(
+
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Profile Details'),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: FutureBuilder<UserList>(
             key: _key,
             future: _getDetails(),
             builder: (context, snapshot) {
@@ -53,34 +57,57 @@ class _ParentUserDetailsScreenState extends State<ParentUserDetailsScreen> {
                 return Center(
                   child: Text(
                     snapshot.error.toString(),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 );
               }
               if (snapshot.hasData) {
                 UserList user = snapshot.data!;
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(user.id.toString()),
-                    Text(user.name),
-                    Text(user.email),
-                    Text(user.balance.toString()),
-                    Text(user.role),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.push(
-                          ParentRoutes.userModify,
-                        );
-                      },
-                      child: const Text("Update password"),
+                    Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDetailRow('Name:', user.name),
+                            _buildDetailRow('Email:', user.email),
+                            _buildDetailRow('Balance:', '${user.balance} tokens'),
+                          ],
+                        ),
+                      ),
                     ),
-                    ElevatedButton(
+                    const SizedBox(height: 20),
+                    const Spacer(),
+                    CustomButton(
+                      text: 'Update Password',
                       onPressed: () {
-                        context.push(
-                          ParentRoutes.userModifyBalance,
+                        context.push(ParentRoutes.userModify);
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomButton(
+                      text: 'Buy Jeton',
+                      onPressed: () {
+                        context.push(ParentRoutes.userModifyBalance);
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomButton(
+                      text: 'Logout',
+                      onPressed: () {
+                        showConfirmationDialog(
+                          context,
+                          'Are you sure you want to logout?',
+                              () => performLogout(context),
                         );
                       },
-                      child: const Text("Buy jeton"),
                     ),
                   ],
                 );
@@ -90,8 +117,35 @@ class _ParentUserDetailsScreenState extends State<ParentUserDetailsScreen> {
               );
             },
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF333333),
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+          ),
         ],
       ),
     );
   }
+
 }

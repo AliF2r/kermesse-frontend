@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/api/api_service.dart';
 import 'package:kermesse_frontend/data/auth_data.dart';
@@ -34,4 +35,20 @@ class AuthService {
       }
     );
   }
+
+  Future<ApiResponse<Null>> updateAuthUserBalance(BuildContext context) async {
+    try {
+      final response = await getCurrentUserResponse();
+      if (response.error != null) {
+        return ApiResponse<Null>(error: response.error);
+      }
+      CurrentUserResponse data = response.data!;
+      //Provider.of<AuthProvider>(context, listen: false).setBalance(data.balance);
+      return ApiResponse<Null>(data: null);
+    } catch (error) {
+      return ApiResponse<Null>(error: error.toString());
+    }
+  }
+
+
 }
