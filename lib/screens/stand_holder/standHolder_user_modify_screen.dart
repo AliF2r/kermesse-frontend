@@ -5,8 +5,10 @@ import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/providers/auth_provider.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/user_service.dart';
-import 'package:kermesse_frontend/widgets/screen.dart';
-import 'package:kermesse_frontend/widgets/text_input.dart';
+import 'package:kermesse_frontend/widgets/confirmation_dialog.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/custom_input_field.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,7 +41,7 @@ class _StandHolderUserModifyScreenState extends State<StandHolderUserModifyScree
     } else {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.remove(ApiConstants.tokenKey);
-      Provider.of<AuthProvider>(context, listen: false).setUser(-1, "", "", "", false);
+      Provider.of<AuthProvider>(context, listen: false).setUser(-1, "", "", "", false, 0);
       context.go(AuthRoutes.login);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -47,6 +49,14 @@ class _StandHolderUserModifyScreenState extends State<StandHolderUserModifyScree
         ),
       );
     }
+  }
+
+  Future<void> _showConfirmationDialog() async {
+    showConfirmationDialog(
+      context,
+      'Are you sure you want to modify the password?',
+      _updatePassword,
+    );
   }
 
   @override
@@ -58,26 +68,45 @@ class _StandHolderUserModifyScreenState extends State<StandHolderUserModifyScree
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Password Edit",
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Modify Password'),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                "Edit Password",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              CustomInputField(
+                controller: passwordInput,
+                labelText: "Current Password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+
+              CustomInputField(
+                controller: newPasswordInput,
+                labelText: "New Password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 30),
+              CustomButton(
+                text: 'Modify Password',
+                onPressed: _showConfirmationDialog,
+              ),
+            ],
           ),
-          TextInput(
-            hint: "Password",
-            controller: passwordInput,
-          ),
-          TextInput(
-            hint: "New password",
-            controller: newPasswordInput,
-          ),
-          ElevatedButton(
-            onPressed: _updatePassword,
-            child: const Text('Update password'),
-          ),
-        ],
+        ),
       ),
     );
   }

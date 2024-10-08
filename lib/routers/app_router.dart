@@ -29,7 +29,7 @@ class AppRouter {
           } else if (user.role == "STUDENT") {
             return StudentRoutes.dashboard;
           } else if (user.role == "STAND_HOLDER") {
-            return StandHolderRoutes.dashboard;
+            return StandHolderRoutes.listKermesse;
           }
         }
         if (isLoggedIn && user.role == "STAND_HOLDER" && !user.withStand) {

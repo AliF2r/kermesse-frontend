@@ -5,7 +5,6 @@ import 'package:kermesse_frontend/providers/auth_user.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/routers/standHolder_navigation.dart';
 import 'package:kermesse_frontend/screens/stand_holder/standHolder_add_stand_screen.dart';
-import 'package:kermesse_frontend/screens/stand_holder/standHolder_dashboard_screen.dart';
 import 'package:kermesse_frontend/screens/stand_holder/standHolder_details_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/stand_holder/standHolder_details_participation_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/stand_holder/standHolder_details_stand_screen.dart';
@@ -22,7 +21,6 @@ class StandHolderRouter {
   static final routes = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) => StandHolderNavigation(navigationShell: navigationShell),
     branches: [
-      _createBranch(StandHolderRoutes.dashboard, const StandHolderDashboardScreen()),
       StatefulShellBranch(
           routes: [
             GoRoute(

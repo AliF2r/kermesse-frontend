@@ -32,7 +32,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Balance: ${user.balance} tokens',
+                'Hello ${user.name}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,

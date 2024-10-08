@@ -4,7 +4,9 @@ import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/stand_data.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/stand_service.dart';
-import 'package:kermesse_frontend/widgets/screen.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
+import 'package:kermesse_frontend/widgets/stand_card_details.dart';
 
 class StandHolderDetailsStandScreen extends StatefulWidget {
   const StandHolderDetailsStandScreen({
@@ -20,7 +22,7 @@ class _StandHolderDetailsStandScreenState extends State<StandHolderDetailsStandS
 
   final StandService _standService = StandService();
 
-  Future<StandDetailsResponse> _get() async {
+  Future<StandDetailsResponse> _getDetails() async {
     ApiResponse<StandDetailsResponse> response = await _standService.getOwnStand();
     if (response.error != null) {
       throw Exception(response.error);
@@ -34,59 +36,58 @@ class _StandHolderDetailsStandScreenState extends State<StandHolderDetailsStandS
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Stand Details",
-          ),
-          FutureBuilder<StandDetailsResponse>(
-            key: _key,
-            future: _get(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    snapshot.error.toString(),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                StandDetailsResponse stand = snapshot.data!;
-                return Column(
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Stand Details'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FutureBuilder<StandDetailsResponse>(
+          key: _key,
+          future: _getDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  snapshot.error.toString(),
+                  style: const TextStyle(color: Colors.red),
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              StandDetailsResponse stand = snapshot.data!;
+              return SingleChildScrollView(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(stand.id.toString()),
-                    Text(stand.category),
-                    Text(stand.name),
-                    Text(stand.description),
-                    Text(stand.stock.toString()),
-                    Text(stand.price.toString()),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await context.push(
-                          StandHolderRoutes.standModify,
-                        );
-                        _init();
-                      },
-                      child: const Text('Modify stand'),
+                    StandDetailsCard(stand: stand),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: CustomButton(
+                          text: "Modify Stand",
+                          onPressed: () async {
+                            await context.push(
+                              StandHolderRoutes.standModify,
+                            );
+                            _init();
+                          },
+                        ),
+                      ),
                     ),
                   ],
-                );
-              }
-              return const Center(
-                child: Text('Something went wrong'),
+                )
               );
-            },
-          ),
-        ],
+            }
+            return const Center(
+              child: Text('Something went wrong'),
+            );
+          },
+        ),
       ),
     );
   }
 }
+

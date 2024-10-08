@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (response.error != null) {
-      _showSnackBar(response.error!);
+      _showSnackBar("User not found, please try again");
       return;
     }
 

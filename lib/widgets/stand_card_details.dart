@@ -36,7 +36,7 @@ class StandDetailsCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Price: ${stand.price} tokens',
+              'Price: ${stand.price} jeton(s)',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 10),

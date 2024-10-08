@@ -21,10 +21,8 @@ class AppThemeHelper {
     switch (category) {
       case 'FOOD':
         return const Icon(Icons.fastfood, size: 40, color: Colors.orange);
-      case 'GAME':
+    default:
         return const Icon(Icons.videogame_asset, size: 40, color: Colors.green);
-      default:
-        return const Icon(Icons.store, size: 40, color: Colors.grey);
     }
   }
 }

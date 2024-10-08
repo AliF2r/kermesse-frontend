@@ -78,7 +78,7 @@ class _ParentUserDetailsScreenState extends State<ParentUserDetailsScreen> {
                           children: [
                             _buildDetailRow('Name:', user.name),
                             _buildDetailRow('Email:', user.email),
-                            _buildDetailRow('Balance:', '${user.balance} tokens'),
+                            _buildDetailRow('Balance:', '${user.balance} jeton(s)'),
                           ],
                         ),
                       ),
