@@ -77,6 +77,7 @@ class _ParentListTicketScreenState extends State<ParentListTicketScreen> {
                           return TicketCard(
                             username: ticket.user.name,
                             isWinner: ticket.isWinner,
+                            isFinish: ticket.kermesse.status == 'FINISH',
                             onTap: () {
                               context.push(
                                 ParentRoutes.ticketDetails,

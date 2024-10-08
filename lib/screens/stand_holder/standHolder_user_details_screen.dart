@@ -91,13 +91,6 @@ class _StandHolderUserDetailsScreenState extends State<StandHolderUserDetailsScr
                     ),
                     const SizedBox(height: 10),
                     CustomButton(
-                      text: 'Buy Jeton',
-                      onPressed: () {
-                        context.push(ParentRoutes.userModifyBalance);
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    CustomButton(
                       text: 'Logout',
                       onPressed: () {
                         showConfirmationDialog(

@@ -95,7 +95,7 @@ class _ParentUserDetailsScreenState extends State<ParentUserDetailsScreen> {
                     CustomButton(
                       text: 'Buy Jeton',
                       onPressed: () {
-                        context.push(ParentRoutes.userModifyBalance);
+                        context.push(ParentRoutes.buyJeton);
                       },
                     ),
                     const SizedBox(height: 10),

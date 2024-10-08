@@ -110,6 +110,7 @@ class _OrganizerinviteStandKermesseScreenState extends State<OrganizerinviteStan
                           subtitle: 'Category: ${stand.category}',
                           description: stand.description,
                           price: 'Price: ${stand.price}',
+                          isClickable: true,
                           onTap: () async {
                             await _showConfirmationDialog(stand.id);
                           },

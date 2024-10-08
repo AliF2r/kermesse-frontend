@@ -115,13 +115,6 @@ class _StudentUserDetailsScreenState extends State<StudentUserDetailsScreen> {
                     ),
                     const SizedBox(height: 10),
                     CustomButton(
-                      text: 'Buy Jeton',
-                      onPressed: () {
-                        context.push(ParentRoutes.userModifyBalance);
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    CustomButton(
                       text: 'Logout',
                       onPressed: () {
                         showConfirmationDialog(

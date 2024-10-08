@@ -105,6 +105,7 @@ class _OrganizerListStandKermesseScreenState extends State<OrganizerListStandKer
                           subtitle: 'Category: ${stand.category}',
                           description: stand.description,
                           price: 'Price: ${stand.price}',
+                          isClickable: false,
                           onTap: () {},
                         );
                       },

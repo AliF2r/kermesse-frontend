@@ -77,6 +77,7 @@ class _StudentListTicketScreenState extends State<StudentListTicketScreen> {
                           return TicketCard(
                             username: ticket.user.name,
                             isWinner: ticket.isWinner,
+                            isFinish: ticket.kermesse.status == 'FINISH',
                             onTap: () {
                               context.push(
                                   StudentRoutes.ticketDetails,

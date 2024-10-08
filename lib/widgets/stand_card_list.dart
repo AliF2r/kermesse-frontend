@@ -6,6 +6,7 @@ class StandCard extends StatelessWidget {
   final String subtitle;
   final String description;
   final String price;
+  final bool isClickable;
   final VoidCallback onTap;
 
   const StandCard({
@@ -15,6 +16,7 @@ class StandCard extends StatelessWidget {
     required this.subtitle,
     required this.description,
     required this.price,
+    required this.isClickable,
     required this.onTap,
   }) : super(key: key);
 
@@ -40,7 +42,7 @@ class StandCard extends StatelessWidget {
             Text(price),
           ],
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+        trailing: isClickable ? const Icon(Icons.arrow_forward_ios, color: Colors.grey) : null,
         onTap: onTap,
       ),
     );

@@ -26,7 +26,7 @@ class StudentDetailsStandKermesseScreen extends StatefulWidget {
 
 class _StudentDetailsStandKermesseScreenState extends State<StudentDetailsStandKermesseScreen> {
   final Key _key = UniqueKey();
-  final TextEditingController quantityInput = TextEditingController();
+  final TextEditingController quantityInput = TextEditingController(text: "1");
 
   final StandService _standService = StandService();
   final ParticipationService _participationService = ParticipationService();

@@ -17,6 +17,7 @@ import 'package:kermesse_frontend/screens/parent/parent_list_kermesse_screen.dar
 import 'package:kermesse_frontend/screens/parent/parent_list_participation_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_list_stand_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_list_ticket_screen.dart';
+import 'package:kermesse_frontend/screens/parent/parent_stripe_balance_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_user_details_screen.dart';
 import 'package:kermesse_frontend/screens/parent/parent_user_modify_screen.dart';
 import 'package:provider/provider.dart';
@@ -150,6 +151,15 @@ class ParentRouter {
                 AuthUser user = Provider.of<AuthProvider>(context, listen: false).user;
                 return NoTransitionPage(
                   child: ParentUserModifyScreen(userId: user.id),
+                );
+              },
+            ),
+            GoRoute(
+              path: ParentRoutes.buyJeton,
+              pageBuilder: (context, state) {
+                AuthUser user = Provider.of<AuthProvider>(context, listen: false).user;
+                return NoTransitionPage(
+                  child: ParentStripeBalanceScreen(userId: user.id),
                 );
               },
             ),

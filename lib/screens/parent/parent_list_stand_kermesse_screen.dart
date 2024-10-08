@@ -79,6 +79,7 @@ class _ParentListStandKermesseScreenState extends State<ParentListStandKermesseS
                           subtitle: 'Category: ${stand.category}',
                           description: stand.description,
                           price: 'Price: ${stand.price}',
+                          isClickable: true,
                           onTap: () {
                             context.push(
                               ParentRoutes.kermesseDetailsStands,

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class TicketCard extends StatelessWidget {
   final String username;
   final bool isWinner;
+  final bool isFinish;
   final VoidCallback onTap;
 
   const TicketCard({
     Key? key,
     required this.username,
     required this.isWinner,
+    required this.isFinish,
     required this.onTap,
   }) : super(key: key);
 
@@ -23,12 +25,12 @@ class TicketCard extends StatelessWidget {
       ),
       child: ListTile(
         leading: Icon(
-          isWinner ? Icons.emoji_events : Icons.event_note,
-          color: isWinner ? Colors.green : Colors.grey,
+          isWinner ? Icons.emoji_events : !isFinish ? Icons.pending : Icons.event_note,
+          color: isWinner ? Colors.green : !isFinish ? Colors.orange : Colors.grey,
           size: 36,
         ),
         title: Text(
-          isWinner ? 'Winner!' : 'Not win yet',
+          isWinner ? 'Winner!' : !isFinish ? 'Waiting for draw' : 'Loser',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

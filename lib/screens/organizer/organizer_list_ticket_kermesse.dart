@@ -78,6 +78,7 @@ class _OrganizerListTicketKermesseScreenState extends State<OrganizerListTicketK
                           return TicketCard(
                             username: ticket.user.name,
                             isWinner: ticket.isWinner,
+                            isFinish: ticket.kermesse.status == 'FINISH',
                             onTap: () {
                               context.push(
                                 OrganizerRoutes.kermesseTicketDetails,

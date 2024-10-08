@@ -155,6 +155,22 @@ class _StandHolderListParticipationKermesseScreenState extends State<StandHolder
                         color: Colors.grey,
                       ),
                     ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Category: ${participation.category}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Status: ${participation.status}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 ),
               ),

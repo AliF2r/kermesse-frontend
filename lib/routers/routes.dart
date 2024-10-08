@@ -47,6 +47,7 @@ class ParentRoutes {
   static const String userDetails = '/parent/user-details';
   static const String userModify = '/parent/user-modify';
   static const String userModifyBalance = '/parent/user-modify-balance';
+  static const String buyJeton = '/parent/user-buy-jeton';
 }
 
 class StudentRoutes {

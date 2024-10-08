@@ -85,17 +85,17 @@ class _OrganizerDetailsTicketKermesseScreenState extends State<OrganizerDetailsT
                   Row(
                     children: [
                       Icon(
-                        ticket.isWinner ? Icons.emoji_events : Icons.sentiment_dissatisfied,
-                        color: ticket.isWinner ? Colors.green : Colors.red,
+                        ticket.isWinner ? Icons.emoji_events : ticket.kermesse.status != 'FINISH' ? Icons.pending : Icons.sentiment_dissatisfied,
+                        color: ticket.isWinner ? Colors.green : ticket.kermesse.status != 'FINISH' ? Colors.orange : Colors.red,
                         size: 40,
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        ticket.isWinner ? 'Winner!' : 'Not win yet',
+                        ticket.isWinner ? 'Winner!' : ticket.kermesse.status != 'FINISH' ? 'Waiting for draw' : 'Not win yet',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: ticket.isWinner ? Colors.green : Colors.red,
+                          color: ticket.isWinner ? Colors.green : ticket.kermesse.status != 'FINISH' ? Colors.grey : Colors.red,
                         ),
                       ),
                     ],

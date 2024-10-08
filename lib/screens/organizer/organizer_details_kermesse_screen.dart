@@ -235,8 +235,8 @@ class _OrganizerDetailsKermesseScreenState extends State<OrganizerDetailsKermess
             context.push(OrganizerRoutes.kermesseParticipations, extra: {"kermesseId": kermesse.id});
           },
         ),
+        const SizedBox(height: 20),
         if (kermesse.status == "STARTED")
-          const SizedBox(height: 20),
           CustomButton(
             text: 'Modify Kermesse',
             onPressed: () async {

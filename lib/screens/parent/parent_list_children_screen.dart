@@ -118,7 +118,7 @@ class _ParentListChildrenScreenState extends State<ParentListChildrenScreen> {
           ),
         ),
         subtitle: Text(
-          'Balance: ${child.balance} tokens',
+          'Balance: ${child.balance} jeton(s)',
           style: const TextStyle(fontSize: 14, color: Colors.grey),
         ),
         trailing: Icon(

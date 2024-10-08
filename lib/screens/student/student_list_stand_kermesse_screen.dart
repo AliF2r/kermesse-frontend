@@ -79,6 +79,7 @@ class _StudentListStandKermesseScreenState extends State<StudentListStandKermess
                           subtitle: 'Category: ${stand.category}',
                           description: stand.description,
                           price: 'Price: ${stand.price}',
+                          isClickable: true,
                           onTap: () {
                             context.push(
                               StudentRoutes.kermesseStandDetails,

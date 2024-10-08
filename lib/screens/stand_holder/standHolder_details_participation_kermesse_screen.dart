@@ -122,7 +122,7 @@ class _StandHolderDetailsParticipationKermesseScreenState extends State<StandHol
                   children: [
                     _buildDetailRow("Participation Category", participation.category),
                     _buildDetailRow("Buyer", participation.user.name),
-                    _buildDetailRow("Price", "${participation.balance} tokens"),
+                    _buildDetailRow("Price", "${participation.balance} jeton(s)"),
                     _buildDetailRow("Kermesse", participation.kermesse.name),
                     _buildDetailRow("Stand", participation.stand.name),
                   ],

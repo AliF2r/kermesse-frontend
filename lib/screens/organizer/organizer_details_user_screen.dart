@@ -94,13 +94,6 @@ class _OriganizerUserDetailsScreenState extends State<OriganizerUserDetailsScree
                     ),
                     const SizedBox(height: 10),
                     CustomButton(
-                      text: 'Buy Jeton',
-                      onPressed: () {
-                        context.push(ParentRoutes.userModifyBalance);
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    CustomButton(
                       text: 'Logout',
                       onPressed: () {
                         showConfirmationDialog(

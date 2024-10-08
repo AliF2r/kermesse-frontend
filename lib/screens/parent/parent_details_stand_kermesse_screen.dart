@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/stand_data.dart';
-import 'package:kermesse_frontend/providers/auth_provider.dart';
-import 'package:kermesse_frontend/providers/auth_user.dart';
-import 'package:kermesse_frontend/services/auth_service.dart';
 import 'package:kermesse_frontend/services/participation_service.dart';
 import 'package:kermesse_frontend/services/stand_service.dart';
-import 'package:kermesse_frontend/widgets/app_theme_helper.dart';
 import 'package:kermesse_frontend/widgets/custom_button.dart';
 import 'package:kermesse_frontend/widgets/custom_input_field.dart';
 import 'package:kermesse_frontend/widgets/global_appBar.dart';
-import 'package:kermesse_frontend/widgets/screen.dart';
 import 'package:kermesse_frontend/widgets/stand_card_details.dart';
-import 'package:kermesse_frontend/widgets/text_input.dart';
-import 'package:provider/provider.dart';
 
 class ParentDetailsStandKermesseScreen extends StatefulWidget {
   final int kermesseId;
@@ -31,11 +24,10 @@ class ParentDetailsStandKermesseScreen extends StatefulWidget {
 
 class _ParentDetailsStandKermesseScreenState extends State<ParentDetailsStandKermesseScreen> {
   final Key _key = UniqueKey();
-  final TextEditingController quantityInput = TextEditingController();
+  final TextEditingController quantityInput = TextEditingController(text: "1");
 
   final StandService _standService = StandService();
   final ParticipationService _participationService = ParticipationService();
-  final AuthService _authService = AuthService();
 
   Future<StandDetailsResponse> _getDetails() async {
     ApiResponse<StandDetailsResponse> response = await _standService.details(standId: widget.standId);
@@ -49,7 +41,7 @@ class _ParentDetailsStandKermesseScreenState extends State<ParentDetailsStandKer
     ApiResponse<Null> response = await _participationService.create(
       kermesseId: widget.kermesseId,
       standId: widget.standId,
-      quantity: int.tryParse(quantityInput.text) ?? 1,
+      quantity: int.parse(quantityInput.text),
     );
     if (response.error != null) {
       ScaffoldMessenger.of(context).showSnackBar(

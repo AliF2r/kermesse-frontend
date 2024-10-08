@@ -107,7 +107,7 @@ class _ParentDetailsChildScreenState extends State<ParentDetailsChildScreen> {
                     const SizedBox(height: 20),
                     _buildDetailRow("Name", user.name),
                     _buildDetailRow("Email", user.email),
-                    _buildDetailRow("Balance", '${user.balance} tokens'),
+                    _buildDetailRow("Balance", '${user.balance} jeton(s)'),
                     const SizedBox(height: 20),
                     const Spacer(),
                     CustomInputField(
@@ -124,7 +124,7 @@ class _ParentDetailsChildScreenState extends State<ParentDetailsChildScreen> {
                         onPressed: () {
                           showConfirmationDialog(
                             context,
-                            'Are you sure you want to send ${balanceInput.text} jetons to ${user.name}?',
+                            'Are you sure you want to send ${balanceInput.text} jeton(s) to ${user.name}?',
                             _sendJeton,
                           );
                         },
