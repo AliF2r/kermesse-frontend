@@ -6,6 +6,7 @@ class UserList {
   final String email;
   final int balance;
   final String role;
+  final int totalPoints;
 
   UserList({
     required this.id,
@@ -13,6 +14,7 @@ class UserList {
     required this.email,
     required this.balance,
     required this.role,
+    required this.totalPoints,
   });
 
   factory UserList.fromMap(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class UserList {
       email: json['email'],
       balance: json['balance'],
       role: json['role'],
+      totalPoints: json['total_point'],
     );
   }
 

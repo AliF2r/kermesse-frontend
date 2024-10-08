@@ -6,6 +6,7 @@ import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/ticket_service.dart';
 import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:kermesse_frontend/widgets/screen_list.dart';
+import 'package:kermesse_frontend/widgets/ticket_card.dart';
 
 class ParentListTicketScreen extends StatefulWidget {
   const ParentListTicketScreen({super.key});
@@ -73,7 +74,19 @@ class _ParentListTicketScreenState extends State<ParentListTicketScreen> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           TicketList ticket = snapshot.data![index];
-                          return _buildTicketCard(ticket);
+                          return TicketCard(
+                            username: ticket.user.name,
+                            isWinner: ticket.isWinner,
+                            onTap: () {
+                              context.push(
+                                ParentRoutes.ticketDetails,
+                                extra: {
+                                  'ticketId': ticket.id,
+                                }
+                              );
+                            },
+
+                          );
                         },
                       );
                     }
@@ -90,40 +103,5 @@ class _ParentListTicketScreenState extends State<ParentListTicketScreen> {
     );
   }
 
-  Widget _buildTicketCard(TicketList ticket) {
-    return Card(
-      color: ticket.isWinner ? Colors.green.shade100 : Colors.white,
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        leading: Icon(
-          ticket.isWinner ? Icons.emoji_events : Icons.event_note,
-          color: ticket.isWinner ? Colors.green : Colors.grey,
-          size: 36,
-        ),
-        title: Text(
-          ticket.isWinner ? 'Winner!' : 'Not win yet',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: ticket.isWinner ? Colors.green : Colors.grey,
-          ),
-        ),
-        subtitle: Text('Bought by: ${ticket.user.name}'),
-        trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey.shade400),
-        onTap: () {
-          // Navigate to ticket details
-          context.push(
-            ParentRoutes.ticketDetails,
-            extra: {
-              "ticketId": ticket.id,
-            },
-          );
-        },
-      ),
-    );
-  }
+
 }

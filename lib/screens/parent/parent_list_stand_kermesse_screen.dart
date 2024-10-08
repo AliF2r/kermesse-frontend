@@ -78,6 +78,8 @@ class _ParentListStandKermesseScreenState extends State<ParentListStandKermesseS
                           icon: AppThemeHelper.getStandIcon(stand.category),
                           title: stand.name,
                           subtitle: 'Category: ${stand.category}',
+                          description: stand.description,
+                          price: 'Price: ${stand.price}',
                           onTap: () {
                             context.push(
                               ParentRoutes.kermesseDetailsStands,

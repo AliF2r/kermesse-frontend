@@ -4,6 +4,9 @@ import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/tombola_data.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/tombola_service.dart';
+import 'package:kermesse_frontend/widgets/confirmation_dialog.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 
 class OrganizerTombolaDetailsKermesseScreen extends StatefulWidget {
@@ -50,79 +53,139 @@ class _OrganizerTombolaDetailsKermesseState
           content: Text('Tombola ended successfully'),
         ),
       );
-      _refresh();
+      _init();
     }
   }
 
-  void _refresh() {
+  Future<void> _showConfirmationDialog() async {
+    showConfirmationDialog(
+      context,
+      'Are you sure you want to finish the tombola and set the winner?',
+      _finishTombolaAndSetWinner,
+    );
+  }
+
+
+  void _init() {
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Tombola Details",
-          ),
-          FutureBuilder<TombolaDetailsResponse>(
-            key: _key,
-            future: _getTombolaDetails(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    snapshot.error.toString(),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                TombolaDetailsResponse tombola = snapshot.data!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(tombola.id.toString()),
-                    Text(tombola.name),
-                    Text(tombola.prize),
-                    Text(tombola.price.toString()),
-                    Text(tombola.status),
-                    tombola.status == "STARTED"
-                        ? Column(
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Tombola Details'),
+      body: Screen(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Tombola:",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              FutureBuilder<TombolaDetailsResponse>(
+                key: _key,
+                future: _getTombolaDetails(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        snapshot.error.toString(),
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    TombolaDetailsResponse tombola = snapshot.data!;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            await context.push(
-                              OrganizerRoutes.kermesseModifyTombola,
-                              extra: {
-                                "kermesseId": widget.kermesseId,
-                                "tombolaId": widget.tombolaId,
-                              },
-                            );
-                            _refresh();
-                          },
-                          child: const Text("Modify"),
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildDetailRow('Name:', tombola.name),
+                                _buildDetailRow('Prize:', tombola.prize),
+                                _buildDetailRow('Price:', tombola.price.toString()),
+                                _buildDetailRow('Status:', tombola.status),
+                              ],
+                            ),
+                          ),
                         ),
-                        ElevatedButton(
-                          onPressed: _finishTombolaAndSetWinner,
-                          child: const Text("Finish and set winner"),
+                        const SizedBox(height: 30),
+                        tombola.status == "STARTED"
+                            ? Column(
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: "Modify",
+                                  onPressed: () async {
+                                    await context.push(
+                                      OrganizerRoutes.kermesseModifyTombola,
+                                      extra: {
+                                        "kermesseId": widget.kermesseId,
+                                        "tombolaId": widget.tombolaId,
+                                      },
+                                    );
+                                    _init();
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Center(
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: "Finish and Set Winner",
+                                  onPressed: _showConfirmationDialog,
+                                ),
+                              ),
+                            ),
+                          ],
                         )
+                            : const SizedBox.shrink(),
                       ],
-                    )
-                        : const SizedBox.shrink(),
-                  ],
-                );
-              }
-              return const Center(
-                child: Text('Something went wrong'),
-              );
-            },
+                    );
+                  }
+                  return const Center(
+                    child: Text('Something went wrong'),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 18, color: Colors.black26),
           ),
         ],
       ),

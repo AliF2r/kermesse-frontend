@@ -106,6 +106,7 @@ class _ParentDetailsTicketScreenState extends State<ParentDetailsTicketScreen> {
                 _buildDetailRow('Tombola name:', ticket.tombola.name),
                 _buildDetailRow('kermesse name:', ticket.kermesse.name),
                 _buildDetailRow('Prize:', ticket.tombola.prize),
+                _buildDetailRow('Price:', ticket.tombola.price.toString()),
               ]
             ),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/services/kermesse_service.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 
 class OrganizerAddKermesseScreen extends StatefulWidget {
@@ -45,49 +47,54 @@ class _OrganizerAddKermesseScreenState extends State<OrganizerAddKermesseScreen>
     super.dispose();
   }
 
-@override
-Widget build(BuildContext context) {
-  return Screen(
-    child: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Add Kermesse",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: nameInput,
-            decoration: const InputDecoration(
-              labelText: 'Name',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: descriptionInput,
-            decoration: const InputDecoration(
-              labelText: 'Description',
-              border: OutlineInputBorder(),
-            ),
-            maxLines: 3,
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _add,
-              child: const Text('Add Kermesse'),
-            ),
-          ),
-        ],
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const GlobalAppBar(
+        title: 'Add Kermesse',
       ),
-    ),
-  );
-}
+      body: Screen(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Add Kermesse",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: nameInput,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: descriptionInput,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Add Kermesse',
+                  onPressed: _add,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
