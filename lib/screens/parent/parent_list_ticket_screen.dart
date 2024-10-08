@@ -30,7 +30,7 @@ class _ParentListTicketScreenState extends State<ParentListTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GlobalAppBar(title: 'Children\'s tickets'),
+      appBar: const GlobalAppBar(title: 'Tickets'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -38,7 +38,7 @@ class _ParentListTicketScreenState extends State<ParentListTicketScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
-                "Tickets :",
+                "Children\'s tickets:",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

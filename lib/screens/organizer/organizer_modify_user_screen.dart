@@ -84,7 +84,7 @@ class _OrganizerModifyUserScreenState extends State<OrganizerModifyUserScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
-                "Edit Password",
+                "Modify Password",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,

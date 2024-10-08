@@ -4,7 +4,6 @@ import 'package:kermesse_frontend/providers/auth_provider.dart';
 import 'package:kermesse_frontend/providers/auth_user.dart';
 import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/routers/student_navigation.dart';
-import 'package:kermesse_frontend/screens/student/student_dashboard_screen.dart';
 import 'package:kermesse_frontend/screens/student/student_details_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/student/student_details_participation_kermesse_screen.dart';
 import 'package:kermesse_frontend/screens/student/student_details_stand_screen.dart';
@@ -25,7 +24,6 @@ class StudentRouter {
   static final routes = StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) => StudentNavigation(navigationShell: navigationShell),
     branches: [
-      _createBranch(StudentRoutes.dashboard, const StudentDashboardScreen()),
       StatefulShellBranch(
         routes: [
           GoRoute(

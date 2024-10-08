@@ -3,6 +3,9 @@ import 'package:kermesse_frontend/api/api_response.dart';
 import 'package:kermesse_frontend/data/tombola_data.dart';
 import 'package:kermesse_frontend/services/ticket_service.dart';
 import 'package:kermesse_frontend/services/tombola_service.dart';
+import 'package:kermesse_frontend/widgets/confirmation_dialog.dart';
+import 'package:kermesse_frontend/widgets/custom_button.dart';
+import 'package:kermesse_frontend/widgets/global_appBar.dart';
 import 'package:kermesse_frontend/widgets/screen.dart';
 
 class StudentDetailsTombolaKermesseScreen extends StatefulWidget {
@@ -57,50 +60,101 @@ class _StudentDetailsTombolaKermesseScreenState extends State<StudentDetailsTomb
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Tombola Details",
+    return Scaffold(
+      appBar: const GlobalAppBar(title: 'Tombola Details'),
+      body: Screen(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Tombola:",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              FutureBuilder<TombolaDetailsResponse>(
+                key: _key,
+                future: _getDetails(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        snapshot.error.toString(),
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    TombolaDetailsResponse tombola = snapshot.data!;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildDetailRow('Name:', tombola.name),
+                                _buildDetailRow('Prize:', tombola.prize),
+                                _buildDetailRow('Price:', tombola.price.toString()),
+                                _buildDetailRow('Status:', tombola.status),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        tombola.status == "STARTED"
+                            ? Column(
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: "Buy Ticket",
+                                  onPressed: _createTicket,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                            : const SizedBox.shrink(),
+                      ],
+                    );
+                  }
+                  return const Center(
+                    child: Text('Something went wrong'),
+                  );
+                },
+              ),
+            ],
           ),
-          FutureBuilder<TombolaDetailsResponse>(
-            key: _key,
-            future: _getDetails(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    snapshot.error.toString(),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                TombolaDetailsResponse data = snapshot.data!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(data.id.toString()),
-                    Text(data.name),
-                    Text(data.price.toString()),
-                    Text(data.prize),
-                    Text(data.status),
-                    ElevatedButton(
-                      onPressed: _createTicket,
-                      child: const Text("Buy ticket"),
-                    )
-                  ],
-                );
-              }
-              return const Center(
-                child: Text('Something went wrong'),
-              );
-            },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 18, color: Colors.black26),
           ),
         ],
       ),

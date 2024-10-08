@@ -36,7 +36,7 @@ class _ParentDetailsParticipationKermesseScreenState extends State<ParentDetails
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const GlobalAppBar(
-        title: 'Participation Details',
+        title: 'Participation',
       ),
       body: Screen(
         child: Padding(
@@ -45,7 +45,7 @@ class _ParentDetailsParticipationKermesseScreenState extends State<ParentDetails
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Participation Details",
+                "Participation Details:",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
@@ -107,7 +107,10 @@ class ParticipationDetailsCard extends StatelessWidget {
             InfoRow(icon: Icons.category, label: 'Category of stand', value: participation.category),
             InfoRow(icon: Icons.confirmation_number, label: 'Stand name', value: participation.stand.name),
             InfoRow(icon: Icons.store, label: 'Description', value: participation.stand.description),
-            InfoRow(icon: Icons.account_balance_wallet, label: 'Balance paid', value: '${participation.balance} jeton'),
+            InfoRow(icon: Icons.account_balance_wallet, label: 'Price', value: '${participation.balance} jeton'),
+            InfoRow(icon: Icons.account_balance_wallet, label: 'Status', value: participation.status == "STARTED" ? 'Pending' : 'Completed'),
+            if (participation.category == 'GAME' && participation.status == "FINISHED")
+              InfoRow(icon: Icons.gamepad, label: 'Gained point', value: participation.point.toString()),
           ],
         ),
       ),

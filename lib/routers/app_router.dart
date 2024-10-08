@@ -27,9 +27,9 @@ class AppRouter {
           } else if (user.role == "PARENT") {
             return ParentRoutes.listKermesse;
           } else if (user.role == "STUDENT") {
-            return StudentRoutes.dashboard;
+            return StudentRoutes.listKermesse;
           } else if (user.role == "STAND_HOLDER") {
-            return StandHolderRoutes.listKermesse;
+            return StandHolderRoutes.standDetails;
           }
         }
         if (isLoggedIn && user.role == "STAND_HOLDER" && !user.withStand) {

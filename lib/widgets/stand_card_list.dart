@@ -40,6 +40,7 @@ class StandCard extends StatelessWidget {
             Text(price),
           ],
         ),
+        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
         onTap: onTap,
       ),
     );

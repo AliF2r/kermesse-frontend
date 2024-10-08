@@ -6,7 +6,6 @@ import 'package:kermesse_frontend/routers/routes.dart';
 import 'package:kermesse_frontend/services/stand_service.dart';
 import 'package:kermesse_frontend/widgets/app_theme_helper.dart';
 import 'package:kermesse_frontend/widgets/global_appBar.dart';
-import 'package:kermesse_frontend/widgets/screen_list.dart';
 import 'package:kermesse_frontend/widgets/stand_card_list.dart';
 
 class ParentListStandKermesseScreen extends StatefulWidget {

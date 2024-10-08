@@ -78,7 +78,7 @@ class _StandHolderUserModifyScreenState extends State<StandHolderUserModifyScree
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
-                "Edit Password",
+                "Modify Password",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
