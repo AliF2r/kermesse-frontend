@@ -51,7 +51,7 @@ class _StandHolderAddScreenState extends State<StandHolderAddScreen> {
         ),
       );
       Provider.of<AuthProvider>(context, listen: false).setHasStand(true);
-      context.go(StandHolderRoutes.dashboard);
+      context.go(StandHolderRoutes.standDetails);
     }
   }
 

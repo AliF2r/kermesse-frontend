@@ -102,8 +102,8 @@ class _OrganizerTombolaListKermesseScreenState extends State<OrganizerTombolaLis
                         TombolaList tombola = snapshot.data![index];
                         return TombolaCard(
                           title: tombola.name,
-                          prize: 'Prize: ${tombola.prize}',
-                          price: 'Price: ${tombola.price}',
+                          prize: tombola.prize,
+                          price: tombola.price.toString(),
                           status: tombola.status,
                           showDetails: true,
                           onTap: () {

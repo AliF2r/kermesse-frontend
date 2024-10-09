@@ -78,8 +78,6 @@ class _OriganizerUserDetailsScreenState extends State<OriganizerUserDetailsScree
                           children: [
                             _buildDetailRow('Name:', user.name),
                             _buildDetailRow('Email:', user.email),
-                            _buildDetailRow('Balance:', '${user.balance} jeton(s)'),
-                            _buildDetailRow('Total points:', user.totalPoints.toString()),
                           ],
                         ),
                       ),
