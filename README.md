@@ -1,16 +1,11 @@
 # kermesse_frontend
 
-A new Flutter project for rattrapage
+A new Flutter application for rattrapage
 
-## Getting Started
+## Usage in local
 
-This project is a starting point for a Flutter application.
+- change the api constants in lib/api, change url of production to localhost, and put stripe keys
+- in api service change all calls from https to http
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
